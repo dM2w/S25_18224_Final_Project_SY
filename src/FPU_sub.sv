@@ -130,7 +130,7 @@ module fp_subtract (
   assign start_sig = data_valid;
   // for reomve break
   logic found_msb;
-  found_msb = 1'b0;
+  assign found_msb = 1'b0;
   always_comb begin
     res_sign_nxt    = res_sign;
     res_exp_nxt     = res_exp;
