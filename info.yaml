@@ -7,7 +7,6 @@ project:
     - FPU_add.sv
     - FPU_div.sv
     - FPU_mul.sv
-    - FPU_sub.sv
     - SPI.sv
   top_module:  "toplevel_chip"
 

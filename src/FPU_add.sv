@@ -150,6 +150,7 @@ module fp_adder (
     next_state = cur_state;
     sum = 32'b0;
     error = 'b0;
+    found_msb = 1'b0;
     
     case (cur_state)
       EXCEPTION_INVALID: begin
@@ -217,7 +218,7 @@ module fp_adder (
           sbit_nxt = sbit | rbit;
         end else begin
           int j;
-          found_msb = 1'b0;
+          // found_msb = 1'b0;
           for (j = 23; j >= 0; j--) begin
             if (!found_msb && mant_res[j]) begin
               norm_man_nxt = mant_res << (23 - j);
