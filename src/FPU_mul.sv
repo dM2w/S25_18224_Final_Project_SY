@@ -105,6 +105,7 @@ module fp_mult (
    end
 
    logic [31:0] qnan;
+   assign qnan = 'b0;
    always_comb begin
       m_sign_next = m_sign;
       m_exp_next = m_exp;
