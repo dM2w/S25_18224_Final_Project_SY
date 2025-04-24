@@ -1,6 +1,6 @@
 TOPLEVEL_LANG = verilog
 VERILOG_SOURCES = $(shell pwd)/src/FPU_add.sv \
-  $(shell pwd)/src/FPU_sub.sv
+  $(shell pwd)/src/FPU_sub.sv \
   $(shell pwd)/src/FPU_mul.sv \
   $(shell pwd)/src/FPU_div.sv \
   $(shell pwd)/src/SPI.sv

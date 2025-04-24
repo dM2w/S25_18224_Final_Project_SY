@@ -40,7 +40,7 @@ module fpu_spi #(
     end
 
     // once frame_done, A B opcode to reg
-    op_t  opcode;
+    logic [1:0]  opcode;
     logic [31:0] op_a, op_b;
     always_ff @(posedge clk) begin
         if (rst) begin
@@ -48,7 +48,7 @@ module fpu_spi #(
             op_a <= 32'h0;
             op_b <= 32'h0;
         end else if (frame_done) begin
-            opcode <= op_t'(rx_shift[65:64]);
+            opcode <= (rx_shift[65:64]);
             op_a <= rx_shift[63:32];
             op_b <= rx_shift[31: 0];
         end
