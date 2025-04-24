@@ -110,7 +110,7 @@ module fp_adder (
       inv_op_flag <= 1'b0;
       ovfl_flag <= 1'b0;
       cur_state <= IDLE;
-      sum <= 32'b0;
+      // sum <= 32'b0;
     end else begin
       res_sign <= res_sign_nxt;
       res_exp <= res_exp_nxt;
@@ -198,18 +198,18 @@ module fp_adder (
       end
 
       ALIGNMENT: begin
-        // normalize the result
         norm_exp_nxt = res_exp;
         norm_man_nxt = mant_res;
-        gbit_nxt = gbit;
-        rbit_nxt = rbit;
-        sbit_nxt = sbit;
-        
+        gbit_nxt     = 1'b0;
+        rbit_nxt     = 1'b0;
+        sbit_nxt     = 1'b0;
+        inv_op_flag_nxt = 1'b0;
+
         if (carry_flag) begin
-          // if an extra carry bit, shift right
-          norm_man_nxt  = mant_res >> 1;
+          norm_man_nxt = mant_res >> 1;
           norm_man_nxt[23] = 1'b1;
-          norm_exp_nxt  = res_exp + 1;
+          norm_exp_nxt = res_exp + 1;
+
           gbit_nxt = norm_man[0];
           rbit_nxt = gbit;
           sbit_nxt = sbit | rbit;
@@ -218,26 +218,27 @@ module fp_adder (
           found_msb = 1'b0;
           for (j = 23; j >= 0; j--) begin
             if (!found_msb && mant_res[j]) begin
-
               norm_man_nxt = mant_res << (23 - j);
               norm_exp_nxt = res_exp - (23 - j);
-              // break;
               found_msb = 1'b1;
             end
           end
+
           if (rnd_mode_nxt != 0) begin
-            norm_man_nxt[0] = gbit_nxt;
-            gbit_nxt = rbit_nxt;
+            norm_man_nxt[0] = gbit;      // Save current gbit into LSB
+            gbit_nxt = rbit;             // Shift round bits
             rbit_nxt = 1'b0;
+            sbit_nxt = 1'b0;
           end
         end
-        inv_op_flag_nxt = 1'b0;
+
+        // Next state transition
         if (rnd_mode_nxt == 7'd1)
           next_state = EVEN_ROUND;
         else
           next_state = RESULT_CHECK;
       end
-
+      
       IDLE: begin
         if (rst) begin
           sum ='b0;
