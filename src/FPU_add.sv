@@ -149,6 +149,7 @@ module fp_adder (
     ovfl_flag_nxt = ovfl_flag;
     next_state = cur_state;
     sum = 32'b0;
+    error = 'b0;
     
     case (cur_state)
       EXCEPTION_INVALID: begin
