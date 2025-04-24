@@ -110,7 +110,8 @@ module fp_adder (
       inv_op_flag <= 1'b0;
       ovfl_flag <= 1'b0;
       cur_state <= IDLE;
-      // sum <= 32'b0;
+      sum <= 32'b0;
+      // error <= 1'b0;
     end else begin
       res_sign <= res_sign_nxt;
       res_exp <= res_exp_nxt;
@@ -125,6 +126,10 @@ module fp_adder (
       inv_op_flag <= inv_op_flag_nxt;
       ovfl_flag <= ovfl_flag_nxt;
       cur_state <= next_state;
+      if (next_state == FINISH) begin
+        sum <= {res_sign, norm_exp, norm_man[22:0]};
+        // error <= inv_op_flag;
+      end
     end
   end
   
@@ -149,10 +154,9 @@ module fp_adder (
     inv_op_flag_nxt = inv_op_flag;
     ovfl_flag_nxt = ovfl_flag;
     next_state = cur_state;
-    sum = 32'b0;
     error = 'b0;
     found_msb = 1'b0;
-    j='b0;
+    j=0;
     
     case (cur_state)
       EXCEPTION_INVALID: begin
@@ -176,7 +180,7 @@ module fp_adder (
 
       FINISH: begin
         // pack the final result
-        sum = {res_sign, norm_exp, norm_man[22:0]};
+        // sum = {res_sign, norm_exp, norm_man[22:0]};
         error = inv_op_flag;
         next_state = IDLE;
       end
@@ -246,7 +250,7 @@ module fp_adder (
 
       IDLE: begin
         if (rst) begin
-          sum ='b0;
+          // sum ='b0;
           error = 1'b0;
         end else if (start_sig) begin
           res_sign_nxt = (fa_a_bigger ? fa_sign_a : fa_sign_b);
