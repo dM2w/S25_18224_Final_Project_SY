@@ -4,6 +4,11 @@ project:
     - toplevel_chip.v
     - chip.sv
     - decoder.v
+    - FPU_add.sv
+    - FPU_div.sv
+    - FPU_mul.sv
+    - FPU_sub.sv
+    - SPI.sv
   top_module:  "toplevel_chip"
 
 # As everyone will have access to all designs, try to make it easy for someone new to your design to know what
