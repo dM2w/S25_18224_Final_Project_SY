@@ -131,6 +131,8 @@ module fp_adder (
   // Combinational state transition and output logic
   //-------------------------------------------------------------------------
 
+  // to delete break
+  logic found_msb;
   always_comb begin
     res_sign_nxt = res_sign;
     res_exp_nxt = res_exp;
@@ -212,11 +214,14 @@ module fp_adder (
           sbit_nxt = sbit | rbit;
         end else begin
           int j;
+          found_msb = 1'b0;
           for (j = 23; j >= 0; j--) begin
-            if (mant_res[j]) begin
+            if (!found_msb && mant_res[j]) begin
+
               norm_man_nxt = mant_res << (23 - j);
               norm_exp_nxt = res_exp - (23 - j);
-              break;
+              // break;
+              found_msb = 1'b1;
             end
           end
           if (rnd_mode_nxt != 0) begin
