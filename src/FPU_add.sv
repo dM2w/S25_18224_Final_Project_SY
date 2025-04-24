@@ -152,6 +152,7 @@ module fp_adder (
     sum = 32'b0;
     error = 'b0;
     found_msb = 1'b0;
+    j='b0;
     
     case (cur_state)
       EXCEPTION_INVALID: begin
