@@ -110,6 +110,7 @@ module fp_adder (
       inv_op_flag <= 1'b0;
       ovfl_flag <= 1'b0;
       cur_state <= IDLE;
+      sum <= 32'b0;
     end else begin
       res_sign <= res_sign_nxt;
       res_exp <= res_exp_nxt;
