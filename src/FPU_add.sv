@@ -134,6 +134,7 @@ module fp_adder (
 
   // to delete break
   logic found_msb;
+  int j;
   always_comb begin
     res_sign_nxt = res_sign;
     res_exp_nxt = res_exp;
@@ -217,7 +218,7 @@ module fp_adder (
           rbit_nxt = gbit;
           sbit_nxt = sbit | rbit;
         end else begin
-          int j;
+          // int j;
           // found_msb = 1'b0;
           for (j = 23; j >= 0; j--) begin
             if (!found_msb && mant_res[j]) begin
