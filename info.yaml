@@ -17,33 +17,38 @@ project:
 #
 # This info will be automatically collected and used to make a datasheet for the chip.
 documentation: 
-  author:       "PLACEHOLDER"      # Your name
+  author:       "Sutong Yao"      # Your name
   discord:      ""      # Your discord handle
-  title:        "PLACEHOLDER"      # Project title
-  description:  "PLACEHOLDER"      # Short description of what your project does
-  how_it_works: "PLACEHOLDER"      # Longer description of how the project works
-  how_to_test:  "PLACEHOLDER"      # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
-  external_hw:  "PLACEHOLDER"      # Describe any external hardware needed
+  title:        "SPI-Based Floating-Point Arithmetic Unit (FPU)"      # Project title
+  description:  "A hardware-accelerated floating-point unit supporting addition, subtraction, multiplication, and division via SPI interface."      # Short description of what your project does
+  how_it_works: # Longer description of how the project works
+    "The project implements an IEEE-754 compliant 32-bit floating-point arithmetic unit (FPU). 
+    Inputs (two operands and operation code) are shifted in through SPI. 
+    After computation, the result and error flag are sent back to the SPI master. 
+    The FPU core handles normalization, rounding, and error detection internally."
+  how_to_test: # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
+    "- Connect an SPI master device (e.g., microcontroller) to io_in[2:0] and io_out[0].
+    - Assert reset signal once at startup (active-high).
+    - Shift 66 bits (2-bit opcode + 32-bit operand A + 32-bit operand B) into the chip over SPI.
+    - Monitor the SPI output (MISO) to receive 33 bits: 1-bit error flag followed by 32-bit floating-point result.
+    - Opcodes:
+      - 00: Addition
+      - 01: Subtraction
+      - 10: Multiplication
+      - 11: Division"
+  external_hw:  "Requires an external SPI master"      # Describe any external hardware needed
   language:     "verilog" # other examples include Verilog, Amaranth, VHDL, etc
   doc_link:     ""      # URL to longer form documentation, eg the README.md in your repository
-  clock_hz:     1000       # Clock frequency in Hz (if required)
+  clock_hz:            # Clock frequency in Hz (if required)
   picture:      ""      # relative path to a picture in your repository
   inputs:               # a description of what the inputs do
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
+    - io_in[0] - SPI clock (SCLK) from master
+    - io_in[1] - SPI chip select (CS_N), active low
+    - io_in[2] - SPI master-out-slave-in (MOSI)
+    - io_in[11:3] - Unused
+    - clock - Main system clock
+    - reset - Active-high reset
   outputs:
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
+    - io_out[0] - SPI master-in-slave-out (MISO)
+    - io_out[11:1] - Unused
 

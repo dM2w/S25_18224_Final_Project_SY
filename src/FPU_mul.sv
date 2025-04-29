@@ -1,11 +1,11 @@
 module fp_mult (
-   input  logic         clk,
-   input  logic         rst,
+   input  logic clk,
+   input  logic rst,
    input  logic [31:0]  a,
    input  logic [31:0]  b,
-   input  logic         data_valid,
+   input  logic data_valid,
    output logic [31:0]  mult,
-   output logic         error
+   output logic error
 );
 
    //====================================================
@@ -105,6 +105,7 @@ module fp_mult (
    end
 
    logic [31:0] qnan;
+   assign qnan = 'b0;
    always_comb begin
       m_sign_next = m_sign;
       m_exp_next = m_exp;
@@ -155,7 +156,7 @@ module fp_mult (
                m_norm_exp_next = m_exp + 1;
                m_guard_next = m_prod[22];
                m_rbit_next= m_prod[21];
-               m_sticky_next=|m_prod[20:0];
+               m_sticky_next= |m_prod[20:0];
             end else begin
                m_norm_next = m_prod[45:22];
                m_norm_exp_next = m_exp;
