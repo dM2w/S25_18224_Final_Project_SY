@@ -13,7 +13,7 @@ async def run_test_vector(dut, test_id, a_val, b_val, expected, rnd_mode):
 
     # let one rising edge capture operands
     await RisingEdge(dut.clk)
-    dut.data_valid.value = 0   # deassert
+    dut.data_valid.value = 0
 
     # wait enough clock cycles
     for _ in range(30):

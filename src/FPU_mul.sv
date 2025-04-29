@@ -37,7 +37,7 @@ module fp_mult (
    assign mul_frac_ext_b = {1'b1, mul_frac_b};
 
    //====================================================
-   // State Machine
+   // FSM
    //====================================================
    typedef enum logic [3:0] {
          ST_LAT,
@@ -105,7 +105,6 @@ module fp_mult (
    end
 
    logic [31:0] qnan;
-   assign qnan = 'b0;
    always_comb begin
       m_sign_next = m_sign;
       m_exp_next = m_exp;
@@ -156,7 +155,7 @@ module fp_mult (
                m_norm_exp_next = m_exp + 1;
                m_guard_next = m_prod[22];
                m_rbit_next= m_prod[21];
-               m_sticky_next= |m_prod[20:0];
+               m_sticky_next=|m_prod[20:0];
             end else begin
                m_norm_next = m_prod[45:22];
                m_norm_exp_next = m_exp;

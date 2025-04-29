@@ -56,9 +56,9 @@ module fpu_spi #(
 
 
     //--------------------------------------------------------------------------
-    // 2) Instantiate the three FPUs (realize sub can reuse add)
+    // 2) Instantiate the three FPUs (sub can reuse add)
     //--------------------------------------------------------------------------
-    logic  f_add_valid, f_mul_valid, f_div_valid;
+    logic f_add_valid, f_mul_valid, f_div_valid;
     logic [31:0] f_add_res, f_mul_res, f_div_res;
     logic e_add, e_mul, e_div;
 
@@ -115,7 +115,7 @@ module fpu_spi #(
             f_div_valid <= 0;
         end else begin
             f_add_valid <= (state == S_IDLE && frame_done &&
-                            (opcode == OP_ADD || opcode == OP_SUB));
+                    (opcode == OP_ADD || opcode == OP_SUB));
             f_mul_valid <= (state == S_IDLE && frame_done && opcode == OP_MUL);
             f_div_valid <= (state == S_IDLE && frame_done && opcode == OP_DIV);
         end
@@ -173,7 +173,7 @@ module fpu_spi #(
 
 
     //--------------------------------------------------------------------------
-    // 4) Shift‑out {err, fpu_out[31:0]} on SCLK
+    // 4) Shift‑out {err, fpu_out[31:0]}
     //--------------------------------------------------------------------------
     logic [1:0]  prev_state;
     logic [32:0] tx_shift;

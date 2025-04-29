@@ -1,11 +1,11 @@
 module fp_div (
-    input  logic        clk,
-    input  logic        rst,
-    input  logic        data_valid,
+    input  logic clk,
+    input  logic rst,
+    input  logic data_valid,
     input  logic [31:0] a,
     input  logic [31:0] b,
     output logic [31:0] div,
-    output logic        error
+    output logic error
 );
 
     //==========================================================================

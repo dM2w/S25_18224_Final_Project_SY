@@ -1,6 +1,6 @@
 module fp_adder (
-  input  logic        clk,
-  input  logic        rst,   // synchronous reset
+  input  logic clk,
+  input  logic rst,   // synchronous reset
   input  logic [31:0] a,     // 32-bit IEEE-754 operand A
   input  logic [31:0] b,     // 32-bit IEEE-754 operand B
   input logic  data_valid,
@@ -55,7 +55,7 @@ module fp_adder (
   assign sticky_mask = 23'h7FFFFF >> (23 - exp_delta + 2);
   
   //-------------------------------------------------------------------------
-  // Define the state machine
+  // FSM
   //-------------------------------------------------------------------------
   typedef enum logic [2:0] {
       IDLE, // initial wait state
@@ -92,9 +92,6 @@ module fp_adder (
   logic inv_op_flag, inv_op_flag_nxt;
   logic ovfl_flag, ovfl_flag_nxt;
   
-  //-------------------------------------------------------------------------
-  // Synchronous register update
-  //-------------------------------------------------------------------------
   always_ff @(posedge clk) begin
     if (rst) begin
       res_sign <= 1'b0;
@@ -134,7 +131,7 @@ module fp_adder (
   end
   
   //-------------------------------------------------------------------------
-  // Combinational state transition and output logic
+  // combinational state transition and output logic
   //-------------------------------------------------------------------------
 
   // to delete break
@@ -209,9 +206,9 @@ module fp_adder (
       ALIGNMENT: begin
         norm_exp_nxt = res_exp;
         norm_man_nxt = mant_res;
-        gbit_nxt     = 1'b0;
-        rbit_nxt     = 1'b0;
-        sbit_nxt     = 1'b0;
+        gbit_nxt = 1'b0;
+        rbit_nxt = 1'b0;
+        sbit_nxt = 1'b0;
         inv_op_flag_nxt = 1'b0;
 
         if (carry_flag) begin
@@ -235,13 +232,13 @@ module fp_adder (
 
           if (rnd_mode_nxt != 0) begin
             norm_man_nxt[0] = gbit;      // Save current gbit into LSB
-            gbit_nxt = rbit;             // Shift round bits
+            gbit_nxt = rbit;
             rbit_nxt = 1'b0;
             sbit_nxt = 1'b0;
           end
         end
 
-        // Next state transition
+        // next state
         if (rnd_mode_nxt == 7'd1)
           next_state = EVEN_ROUND;
         else

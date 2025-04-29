@@ -15,7 +15,7 @@ async def run_test_vector(dut, test_id, a_val, b_val, expected_sum, expected_err
 
     # let one rising edge capture operands
     await RisingEdge(dut.clk)
-    dut.data_valid.value = 0   # deassert
+    dut.data_valid.value = 0
 
     # now wait up to N cycles for result to settle
     for _ in range(30):
@@ -48,8 +48,6 @@ async def fp_adder_test(dut):
     dut.rst.value = 0
     await RisingEdge(dut.clk)
 
-
-    # test vectors for each case.
     # (a, b, expected_sum, expected_error)
     # all tests first here use the default rounding mode (0) except for the TTE rounding tests
     test_vectors_default = [
@@ -76,13 +74,13 @@ async def fp_adder_test(dut):
     ]
 
     test_id = 1
-    # default test vectors with rounding_mode = 0.
+    # default test vectors with rounding_mode = 0
     for vec in test_vectors_default:
         a_val, b_val, expected_sum, expected_err = vec
         await run_test_vector(dut, test_id, a_val, b_val, expected_sum, expected_err, rounding_mode=0)
         test_id += 1
 
-    # rounding test vectors with rounding_mode = 1.
+    # rounding test vectors with rounding_mode = 1
     dut._log.info("Switching to TTE rounding mode (rounding_mode = 1)")
     for vec in test_vectors_tte:
         a_val, b_val, expected_sum, expected_err = vec

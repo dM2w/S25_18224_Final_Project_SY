@@ -66,7 +66,7 @@ module fpu_spi_test #(
   end
 
   //--------------------------------------------------------------------------
-  // 2) Instantiate FPU
+  // FPU
   //--------------------------------------------------------------------------
   logic f_add_valid, f_mul_valid, f_div_valid;
   logic [31:0] f_add_res, f_mul_res, f_div_res;
@@ -103,7 +103,7 @@ module fpu_spi_test #(
   );
 
   //--------------------------------------------------------------------------
-  // 3) Control FSM to ex one op and wait FPU_LATENCY cycles
+  // ex one op and wait FPU_LATENCY cycles
   //--------------------------------------------------------------------------
   typedef enum logic [1:0] {
     S_IDLE = 2'd0,
@@ -154,9 +154,9 @@ module fpu_spi_test #(
 
 
   always_comb begin
-    state_n  = state;
-    fpu_out  = 32'd0;
-    fpu_err  = 1'b0;
+    state_n = state;
+    fpu_out= 32'd0;
+    fpu_err= 1'b0;
 
     case (state)
       S_IDLE:
@@ -189,7 +189,7 @@ module fpu_spi_test #(
   end
 
   //--------------------------------------------------------------------------
-  // 4) Shift‑out {err, fpu_out[31:0]}
+  // Shift‑out {err, fpu_out[31:0]}
   //--------------------------------------------------------------------------
   logic [1:0]  prev_state;
   logic [32:0] tx_shift;
