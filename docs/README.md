@@ -11,7 +11,7 @@ Supported operations:
     - Division
 
 ## Block Diagram
-![Block Diagram Overview]S25_18224_Final_Project_SY/img/IMG_F1397ED67D00-1.jpeg
+![Block Diagram Overview](../img/IMG_F1397ED67D00-1.jpeg)
 
 The FPU is integrated inside a top-level wrapper called my_chip, using a 12-bit IO interface.
 
