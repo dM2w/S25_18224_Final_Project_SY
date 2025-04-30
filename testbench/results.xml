@@ -1,6 +1,0 @@
-<testsuites name="results">
-  <testsuite name="all" package="all">
-    <property name="random_seed" value="1746032467" />
-    <testcase name="fp_subtract_test" classname="sub_test" file="/afs/andrew.cmu.edu/usr16/sutongy/private/18224/S25_18224_Final_Project_SY/testbench/sub_test.py" lineno="35" time="0.037850379943847656" sim_time_ns="2810.001" ratio_time="74239.70391231828" />
-  </testsuite>
-</testsuites>
