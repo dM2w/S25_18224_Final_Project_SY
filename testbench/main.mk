@@ -1,9 +1,9 @@
 TOPLEVEL_LANG = verilog
 VERILOG_SOURCES = \
-  $(shell pwd)/src/FPU_add.sv \
-  $(shell pwd)/src/FPU_mul.sv \
-  $(shell pwd)/src/FPU_div.sv \
-  $(shell pwd)/src/SPI_TESTMODE.sv
+  $(shell pwd)/../src/FPU_add.sv \
+  $(shell pwd)/../src/FPU_mul.sv \
+  $(shell pwd)/../src/FPU_div.sv \
+  $(shell pwd)/../src/SPI_TESTMODE.sv
 TOPLEVEL = fpu_spi_test
 MODULE = main_test
 SIM = verilator

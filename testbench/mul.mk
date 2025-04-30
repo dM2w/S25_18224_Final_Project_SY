@@ -1,5 +1,5 @@
 TOPLEVEL_LANG = verilog
-VERILOG_SOURCES = $(shell pwd)/src/FPU_mul.sv
+VERILOG_SOURCES = $(shell pwd)/../src/FPU_mul.sv
 TOPLEVEL = fp_mult
 MODULE = mul_test
 SIM = verilator

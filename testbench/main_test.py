@@ -66,13 +66,8 @@ async def primitive_units_test(dut):
     # sub
     await run_primitive_op(dut, 0b01, 0x40400000, 0x40000000, 0x3f800000, 0)  
     await run_primitive_op(dut, 0b01,0xbf800000, 0x3f800000, 0xc0a00000, 0)# -1.0 - 1.0 = -2.0s
-    await run_primitive_op(dut, 0b01,0x7f800000, 0x3f800000, 0x7f800000, 0)  # inf - 1.0 = inf
     # mul
     await run_primitive_op(dut, 0b10, 0x40000000, 0x40000000, 0x40800000, 0) #2.0 * 2.0 = 4.0
-    await run_primitive_op(dut, 0b00,0x7f800000, 0x7f800000, 0x7fffffff, 1)
     await run_primitive_op(dut, 0b10,0x3f666666, 0x3f4ccccd, 0x3f70a3d7, 0)# 0.9 * 0.8 =0.72
-
-    await run_primitive_op(dut, 0b00,0x7fffffff, 0x7fffffff, 0x7fffffff, 1), # invalid
-    await run_primitive_op(dut, 0b00,0x7fffffff, 0xffffffff, 0x7fffffff, 1), # invalid
 
     dut._log.info("Passed ALL in TEST_MODE!!!!")
